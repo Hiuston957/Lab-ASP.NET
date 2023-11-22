@@ -19,8 +19,7 @@ namespace Laboratorium3.Models
         [DataType(DataType.Date)]
         public DateTime Data_wydania { get;set; }
 
-        public List<TimeSpan> Czas_trwania { get; set; } 
-
-
+        public List<TimeSpan> Czas_trwania { get; set; }
+        
     }
 }

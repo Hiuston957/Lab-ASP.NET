@@ -89,17 +89,7 @@ namespace Laboratorium3.Controllers
                 return RedirectToAction("Index");
             }
 
-            return NotFound(); // Możesz obsłużyć sytuację, gdy album nie istnieje.
-
-            /*
-            if (ModelState.IsValid) // nie ma jawnego powiązania ale sprawdza czy model istenieje
-            {
-                _albumService.DeleteById(model);
-                // zapamietaj kontakt
-
-                return RedirectToAction("Index");
-            }
-            return View();*/
+            return NotFound(); 
 
         }
 
