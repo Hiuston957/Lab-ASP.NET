@@ -32,9 +32,8 @@
     <div id="piosenkiContainer">
         <div class="piosenka">
             <label>Piosenka:</label>
-            <input class="form-control" asp-for="Spis_piosenek[0]" />
             <label>Czas trwannia:</label>
-            <input class="form-control" asp-for="Czas_trwania[0]" placeholder="hh:mm:ss" />
+            <input class="form-control" ?asp-for="Czas_trwania[0]" placeholder="hh:mm:ss" />
         </div>
     </div>
     <div><button type="button" id="dodajPiosenke">Dodaj piosenkę</button></div>

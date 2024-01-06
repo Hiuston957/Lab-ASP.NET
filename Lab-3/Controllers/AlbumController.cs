@@ -22,19 +22,22 @@ namespace Laboratorium3.Controllers
         {
             return View();
         }
+
+    
+       
         [HttpPost]
         public IActionResult Create(Album model)
         {
-            if (ModelState.IsValid) // nie ma jawnego powiązania ale sprawdza czy model istenieje
+            if (ModelState.IsValid)
             {
                 _albumService.Add(model);
-                // zapamietaj kontakt
-
                 return RedirectToAction("Index");
             }
-            return View();
 
+            // Jeśli ModelState nie jest poprawny, przekazujemy bieżący model z powrotem do widoku
+            return View(model);
         }
+
 
         [HttpGet]
         public IActionResult Details(int id)
