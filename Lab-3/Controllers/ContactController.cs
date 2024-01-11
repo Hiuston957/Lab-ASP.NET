@@ -60,7 +60,7 @@ namespace Laboratorium3.Controllers
         [HttpPost]
         public IActionResult Delete(Contact model)
         {
-            if (ModelState.IsValid) // nie ma jawnego powiązania ale sprawdza czy model istenieje
+            if (ModelState.IsValid) 
             {
                 _contactService.DeleteById(model);
                 // zapamietaj kontakt

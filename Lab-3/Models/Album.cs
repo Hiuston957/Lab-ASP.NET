@@ -20,6 +20,7 @@ namespace Laboratorium3.Models
         public DateTime Data_wydania { get;set; }
 
         public List<TimeSpan> Czas_trwania { get; set; }
-        
+
+   
     }
 }
