@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\EFData\EFData.csproj" />
+	</ItemGroup>
+
+
 </Project>
