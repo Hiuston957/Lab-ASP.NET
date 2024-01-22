@@ -12,15 +12,18 @@ namespace Data
 {
     public class AppDbContext : IdentityDbContext<IdentityUser>
     {
-        public DbSet<ContactEntity> Contacts { get; set; }
-       // public DbSet<AlbumEntity> Albums { get; set; }
+
+        
+       public DbSet<ContactEntity> Contacts { get; set; }
+        public DbSet<AlbumEntity> Albums { get; set; }
+
         private string DbPath { get; set; }
 
         public AppDbContext()
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
-            DbPath = System.IO.Path.Join(path, "contacts.db");
+            DbPath = System.IO.Path.Join(path, "Mydata1.db");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options) =>
@@ -28,6 +31,7 @@ namespace Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             base.OnModelCreating(modelBuilder);
 
             // Dodanie roli administratora

@@ -1,4 +1,5 @@
 using Laboratorium3.Models;
+using Laboratorium3.Services;
 using System.Xml.Linq;
 
 namespace Laboratorium3
@@ -16,9 +17,9 @@ namespace Laboratorium3
 
 
            builder.Services.AddDbContext<Data.AppDbContext>();
+           
+           builder.Services.AddTransient<IAlbumService, EFAlbumService>();
            builder.Services.AddTransient<IContactService, EFContactService>();
-
-
 
 
 
