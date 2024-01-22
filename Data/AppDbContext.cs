@@ -1,4 +1,6 @@
 ﻿using Data.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,39 +10,94 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    //internal class AppDbContext: DbContext
-    //  {
-    // public DbSet<AlbumEntity> Albums { get; set; }
-
-
-    internal class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<IdentityUser>
     {
         public DbSet<ContactEntity> Contacts { get; set; }
+       // public DbSet<AlbumEntity> Albums { get; set; }
         private string DbPath { get; set; }
+
         public AppDbContext()
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
             DbPath = System.IO.Path.Join(path, "contacts.db");
         }
+
         protected override void OnConfiguring(DbContextOptionsBuilder options) =>
-        options.UseSqlite($"Data Source={DbPath}");
+            options.UseSqlite($"Data Source={DbPath}");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ContactEntity>().HasData(
-                new ContactEntity() { Id = 1, Name = "Adam", Email = "adam@wsei.edu.pl", Phone = "127813268163", Birth = new DateTime(2000, 10, 10) },
-                new ContactEntity() { Id = 2, Name = "Ewa", Email = "ewa@wsei.edu.pl", Phone = "293443823478", Birth = new DateTime(1999, 8, 10) }
-            );
+            base.OnModelCreating(modelBuilder);
+
+            // Dodanie roli administratora
+            string ADMIN_ROLE_ID = Guid.NewGuid().ToString();
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Name = "admin",
+                NormalizedName = "ADMIN",
+                Id = ADMIN_ROLE_ID,
+                ConcurrencyStamp = ADMIN_ROLE_ID
+            });
+
+            // Utworzenie administratora jako użytkownika
+            string ADMIN_ID = Guid.NewGuid().ToString();
+            var admin = new IdentityUser
+            {
+                Id = ADMIN_ID,
+                Email = "adam@wsei.edu.pl",
+                EmailConfirmed = true,
+                UserName = "adam",
+                NormalizedUserName = "ADMIN"
+            };
+
+            // Haszowanie hasła
+            PasswordHasher<IdentityUser> ph = new PasswordHasher<IdentityUser>();
+            admin.PasswordHash = ph.HashPassword(admin, "1234abcd!@#$ABCD");
+
+            // Zapisanie użytkownika
+            modelBuilder.Entity<IdentityUser>().HasData(admin);
+
+            // Przypisanie roli administratora użytkownikowi
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = ADMIN_ROLE_ID,
+                UserId = ADMIN_ID
+            });
+
+            // Dodanie roli użytkownika
+            string USER_ROLE_ID = Guid.NewGuid().ToString();
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Name = "user",
+                NormalizedName = "USER",
+                Id = USER_ROLE_ID,
+                ConcurrencyStamp = USER_ROLE_ID
+            });
+
+            // Utworzenie użytkownika z rolą USER
+            string USER_ID = Guid.NewGuid().ToString();
+            var user = new IdentityUser
+            {
+                Id = USER_ID,
+                Email = "user@wsei.edu.pl",
+                EmailConfirmed = true,
+                UserName = "user",
+                NormalizedUserName = "user"
+            };
+
+            // Haszowanie hasła użytkownika
+            user.PasswordHash = ph.HashPassword(user, "user1234");
+
+            // Zapisanie użytkownika
+            modelBuilder.Entity<IdentityUser>().HasData(user);
+
+            // Przypisanie roli USER użytkownikowi
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = USER_ROLE_ID,
+                UserId = USER_ID
+            });
         }
     }
-
-    //  {1, new Album() { Id = 1,Nazwa = "Nazwa1",Zespol = "Autor1",Spis_piosenek = new List<string> { "m1", "m2", "m3" },Notowanie = 12,Czas_trwania = new List<TimeSpan> { new TimeSpan(12, 4, 13), new TimeSpan(0, 03, 39), new TimeSpan(0, 01, 11) } , Data_wydania = new DateTime(2023, 11, 11)}
-    ///
-    /////     {2, new Album() { Id = 2,Nazwa = "Nazwa2",Zespol = "Autor2",Spis_piosenek = new List<string> { "muzyka1" }, Notowanie = 234,Czas_trwania = new List<TimeSpan> { new TimeSpan(33, 55, 24) } , Data_wydania = new DateTime(2022, 12, 12)}
-    //
-
-
-
-    //}
 }

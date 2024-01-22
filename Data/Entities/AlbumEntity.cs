@@ -10,9 +10,9 @@ namespace Data.Entities
 {
 
     [Table("albums")]
-    internal class AlbumEntity
+    public class AlbumEntity
     {
-        [Key]
+       [Key]
         public int Id { get; set; }
         public string Nazwa { get; set; }
         public string? Zespol { get; set; }
@@ -22,4 +22,8 @@ namespace Data.Entities
        public List<TimeSpan>? Czas_trwania { get; set; }
 
     }
+
+
+
+
 }

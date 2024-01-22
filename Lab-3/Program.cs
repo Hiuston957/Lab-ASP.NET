@@ -1,4 +1,5 @@
 using Laboratorium3.Models;
+using System.Xml.Linq;
 
 namespace Laboratorium3
 {
@@ -12,6 +13,22 @@ namespace Laboratorium3
             builder.Services.AddControllersWithViews();
             builder.Services.AddSingleton<IContactService, MemoryContactServices>();
             builder.Services.AddSingleton<IAlbumService, MemoryAlbumServices>();
+
+
+           builder.Services.AddDbContext<Data.AppDbContext>();
+           builder.Services.AddTransient<IContactService, EFContactService>();
+
+
+
+
+
+
+
+
+
+
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
