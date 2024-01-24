@@ -23,7 +23,7 @@ namespace Data
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
-            DbPath = System.IO.Path.Join(path, "Mydata1.db");
+            DbPath = System.IO.Path.Join(path, "Mydata2.db");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options) =>
@@ -31,6 +31,8 @@ namespace Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //modelBuilder.Entity<ContactEntity>();
+            modelBuilder.Entity<AlbumEntity>();
 
             base.OnModelCreating(modelBuilder);
 

@@ -31,14 +31,14 @@
         </tr>
     </thead>
     <tbody>
-       @foreach (Album item in @Model)
+        @foreach (Album item in @Model)
         {
-            int liczba_piosenek = item.Spis_piosenek.Count();
+            int liczba_piosenek = (item.Spis_piosenek != null) ? item.Spis_piosenek.Count() : 0;
             var sumaCzasu = TimeSpan.Zero;
-            foreach(var piosenka in item.Czas_trwania)
-            {
-                sumaCzasu = sumaCzasu.Add(piosenka);
-            }
+           // foreach (var piosenka in item.Czas_trwania)
+           // {
+           //     sumaCzasu = sumaCzasu.Add(piosenka);
+          //  }
 
             <tr>
                 <td>
@@ -49,7 +49,6 @@
                 </td>
                 <td>
                     @liczba_piosenek
-                   
                 </td>
                 <td>
                     @item.Notowanie
@@ -62,10 +61,9 @@
                     <a asp-action="Update" asp-route-id="@item.Id">Edytuj</a>
                     <a asp-action="Details" asp-route-id="@item.Id">Szczegóły</a>
                     <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
-
-
                 </td>
             </tr>
         }
+
     </tbody>
 </table>
