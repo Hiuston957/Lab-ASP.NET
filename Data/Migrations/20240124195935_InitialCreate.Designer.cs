@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240124192954_InitialCreate")]
+    [Migration("20240124195935_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,22 +25,43 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("Data_wydania")
+                    b.Property<DateTime>("Data_wydania")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nazwa")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("Notowanie")
+                    b.Property<int>("Notowanie")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Zespol")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.ToTable("albums");
+                });
+
+            modelBuilder.Entity("AlbumSong", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AlbumId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SongTitle")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AlbumId");
+
+                    b.ToTable("album_songs");
                 });
 
             modelBuilder.Entity("AlbumTimeSpan", b =>
@@ -120,15 +141,15 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "15072775-8685-49ac-8d31-f7fc74e9e8f9",
-                            ConcurrencyStamp = "15072775-8685-49ac-8d31-f7fc74e9e8f9",
+                            Id = "fefb3a39-ef3a-41db-a423-39844dbda7da",
+                            ConcurrencyStamp = "fefb3a39-ef3a-41db-a423-39844dbda7da",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "a48e4e39-a25f-4319-a5d5-ccde1d53f232",
-                            ConcurrencyStamp = "a48e4e39-a25f-4319-a5d5-ccde1d53f232",
+                            Id = "aad82ec9-f685-4cf8-a424-76875936d557",
+                            ConcurrencyStamp = "aad82ec9-f685-4cf8-a424-76875936d557",
                             Name = "user",
                             NormalizedName = "USER"
                         });
@@ -223,31 +244,31 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6fed68ab-8ba6-4697-b52a-8e84715c9e03",
+                            Id = "2553e3cf-0293-40b9-942f-2573eda46e4d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8152fe8b-6cc7-4e13-bfeb-d2e9c1f6c660",
+                            ConcurrencyStamp = "64506397-0c43-45dd-baf4-d17bc6332e74",
                             Email = "adam@wsei.edu.pl",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEK5CWtXlIHwPPJOMB/9czU6uXGQHbqqqwNLp6GcEAt0XUbKScD0S/gFTPEQ4EzhHxA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJUd0636pay6BIKGWULC4ek0Y8QJZzD1mYdUNjsmOI5JT6iDg4aIQzlTdvacN0HPrw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "466a83c2-28fb-4cbd-a4b8-7a1f7d71f8bc",
+                            SecurityStamp = "63c1466a-380f-4c53-8a9e-4415df51ec18",
                             TwoFactorEnabled = false,
                             UserName = "adam"
                         },
                         new
                         {
-                            Id = "5774a6b2-20a6-4ff9-aeb1-5e9bbfb00ccd",
+                            Id = "aa0193b6-736e-4961-962f-ef0d5705b446",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a6211be6-3e79-4a4e-b017-bc0bbd3e047e",
+                            ConcurrencyStamp = "00dd8806-adb2-4258-84e6-f50c8af2da12",
                             Email = "user@wsei.edu.pl",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "user",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKNdVXSHnQyykyvWO1SJtB+3pm7KZydYTlEwIl3MWN5O5DJnzGwtqLhPOVZv+SGD7w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEInVoCBSucqQW42Xs0iJKhNYjAXIOvlykrGBH2oiJl3Kaw96w8Wh5Nnuk0Hx4MebDg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b5cf8201-4f99-46dd-949b-73bdeb6208fe",
+                            SecurityStamp = "0aa7264b-74be-419b-9b2b-69389a7f805a",
                             TwoFactorEnabled = false,
                             UserName = "user"
                         });
@@ -315,13 +336,13 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "6fed68ab-8ba6-4697-b52a-8e84715c9e03",
-                            RoleId = "15072775-8685-49ac-8d31-f7fc74e9e8f9"
+                            UserId = "2553e3cf-0293-40b9-942f-2573eda46e4d",
+                            RoleId = "fefb3a39-ef3a-41db-a423-39844dbda7da"
                         },
                         new
                         {
-                            UserId = "5774a6b2-20a6-4ff9-aeb1-5e9bbfb00ccd",
-                            RoleId = "a48e4e39-a25f-4319-a5d5-ccde1d53f232"
+                            UserId = "aa0193b6-736e-4961-962f-ef0d5705b446",
+                            RoleId = "aad82ec9-f685-4cf8-a424-76875936d557"
                         });
                 });
 
@@ -342,6 +363,17 @@ namespace Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("AlbumSong", b =>
+                {
+                    b.HasOne("AlbumEntity", "Album")
+                        .WithMany("Songs")
+                        .HasForeignKey("AlbumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Album");
                 });
 
             modelBuilder.Entity("AlbumTimeSpan", b =>
@@ -409,6 +441,8 @@ namespace Data.Migrations
             modelBuilder.Entity("AlbumEntity", b =>
                 {
                     b.Navigation("Czas_trwania");
+
+                    b.Navigation("Songs");
                 });
 #pragma warning restore 612, 618
         }

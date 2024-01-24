@@ -9,34 +9,20 @@ namespace Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DeleteData(
-                table: "albums",
-                keyColumn: "Id",
-                keyValue: 5);
-
-            migrationBuilder.DeleteData(
-                table: "albums",
-                keyColumn: "Id",
-                keyValue: 6);
-
             migrationBuilder.CreateTable(
-                name: "album_timespans",
+                name: "albums",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    TimeSpanValue = table.Column<TimeSpan>(type: "TEXT", nullable: false),
-                    AlbumId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Nazwa = table.Column<string>(type: "TEXT", nullable: false),
+                    Zespol = table.Column<string>(type: "TEXT", nullable: false),
+                    Notowanie = table.Column<int>(type: "INTEGER", nullable: false),
+                    Data_wydania = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_album_timespans", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_album_timespans_albums_AlbumId",
-                        column: x => x.AlbumId,
-                        principalTable: "albums",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_albums", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -92,6 +78,46 @@ namespace Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_contacts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "album_songs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    SongTitle = table.Column<string>(type: "TEXT", nullable: false),
+                    AlbumId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_album_songs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_album_songs_albums_AlbumId",
+                        column: x => x.AlbumId,
+                        principalTable: "albums",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "album_timespans",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    TimeSpanValue = table.Column<TimeSpan>(type: "TEXT", nullable: false),
+                    AlbumId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_album_timespans", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_album_timespans_albums_AlbumId",
+                        column: x => x.AlbumId,
+                        principalTable: "albums",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -203,32 +229,37 @@ namespace Data.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "15072775-8685-49ac-8d31-f7fc74e9e8f9", "15072775-8685-49ac-8d31-f7fc74e9e8f9", "admin", "ADMIN" });
+                values: new object[] { "aad82ec9-f685-4cf8-a424-76875936d557", "aad82ec9-f685-4cf8-a424-76875936d557", "user", "USER" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "a48e4e39-a25f-4319-a5d5-ccde1d53f232", "a48e4e39-a25f-4319-a5d5-ccde1d53f232", "user", "USER" });
+                values: new object[] { "fefb3a39-ef3a-41db-a423-39844dbda7da", "fefb3a39-ef3a-41db-a423-39844dbda7da", "admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "5774a6b2-20a6-4ff9-aeb1-5e9bbfb00ccd", 0, "a6211be6-3e79-4a4e-b017-bc0bbd3e047e", "user@wsei.edu.pl", true, false, null, null, "user", "AQAAAAEAACcQAAAAEKNdVXSHnQyykyvWO1SJtB+3pm7KZydYTlEwIl3MWN5O5DJnzGwtqLhPOVZv+SGD7w==", null, false, "b5cf8201-4f99-46dd-949b-73bdeb6208fe", false, "user" });
+                values: new object[] { "2553e3cf-0293-40b9-942f-2573eda46e4d", 0, "64506397-0c43-45dd-baf4-d17bc6332e74", "adam@wsei.edu.pl", true, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEJUd0636pay6BIKGWULC4ek0Y8QJZzD1mYdUNjsmOI5JT6iDg4aIQzlTdvacN0HPrw==", null, false, "63c1466a-380f-4c53-8a9e-4415df51ec18", false, "adam" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "6fed68ab-8ba6-4697-b52a-8e84715c9e03", 0, "8152fe8b-6cc7-4e13-bfeb-d2e9c1f6c660", "adam@wsei.edu.pl", true, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEK5CWtXlIHwPPJOMB/9czU6uXGQHbqqqwNLp6GcEAt0XUbKScD0S/gFTPEQ4EzhHxA==", null, false, "466a83c2-28fb-4cbd-a4b8-7a1f7d71f8bc", false, "adam" });
+                values: new object[] { "aa0193b6-736e-4961-962f-ef0d5705b446", 0, "00dd8806-adb2-4258-84e6-f50c8af2da12", "user@wsei.edu.pl", true, false, null, null, "user", "AQAAAAEAACcQAAAAEInVoCBSucqQW42Xs0iJKhNYjAXIOvlykrGBH2oiJl3Kaw96w8Wh5Nnuk0Hx4MebDg==", null, false, "0aa7264b-74be-419b-9b2b-69389a7f805a", false, "user" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "a48e4e39-a25f-4319-a5d5-ccde1d53f232", "5774a6b2-20a6-4ff9-aeb1-5e9bbfb00ccd" });
+                values: new object[] { "fefb3a39-ef3a-41db-a423-39844dbda7da", "2553e3cf-0293-40b9-942f-2573eda46e4d" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "15072775-8685-49ac-8d31-f7fc74e9e8f9", "6fed68ab-8ba6-4697-b52a-8e84715c9e03" });
+                values: new object[] { "aad82ec9-f685-4cf8-a424-76875936d557", "aa0193b6-736e-4961-962f-ef0d5705b446" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_album_songs_AlbumId",
+                table: "album_songs",
+                column: "AlbumId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_album_timespans_AlbumId",
@@ -276,6 +307,9 @@ namespace Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "album_songs");
+
+            migrationBuilder.DropTable(
                 name: "album_timespans");
 
             migrationBuilder.DropTable(
@@ -297,20 +331,13 @@ namespace Data.Migrations
                 name: "contacts");
 
             migrationBuilder.DropTable(
+                name: "albums");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.InsertData(
-                table: "albums",
-                columns: new[] { "Id", "Data_wydania", "Nazwa", "Notowanie", "Zespol" },
-                values: new object[] { 5, null, "Nazwa", null, null });
-
-            migrationBuilder.InsertData(
-                table: "albums",
-                columns: new[] { "Id", "Data_wydania", "Nazwa", "Notowanie", "Zespol" },
-                values: new object[] { 6, null, "Nazwa2", null, null });
         }
     }
 }

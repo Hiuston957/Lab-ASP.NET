@@ -35,10 +35,10 @@
         {
             int liczba_piosenek = (item.Spis_piosenek != null) ? item.Spis_piosenek.Count() : 0;
             var sumaCzasu = TimeSpan.Zero;
-           // foreach (var piosenka in item.Czas_trwania)
-           // {
-           //     sumaCzasu = sumaCzasu.Add(piosenka);
-          //  }
+            foreach (var piosenka in item.Czas_trwania ?? Enumerable.Empty<TimeSpan>())
+            {
+                sumaCzasu = sumaCzasu.Add(piosenka);
+            }
 
             <tr>
                 <td>
@@ -56,7 +56,6 @@
                 <td>
                     @sumaCzasu.ToString(@"hh\h\ mm\m\ ss\s")
                 </td>
-
                 <td>
                     <a asp-action="Update" asp-route-id="@item.Id">Edytuj</a>
                     <a asp-action="Details" asp-route-id="@item.Id">Szczegóły</a>
