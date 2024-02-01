@@ -9,32 +9,28 @@
 
 
     <label asp-for="Nazwa"></label>
-    <input class="form-control" asp-for="Nazwa" />
+    <input class="form-control" asp-for="Nazwa"  />
     <span class="text-danger" asp-validation-for="Nazwa"></span>
 
     <label asp-for="Zespol"></label>
-    <input class="form-control" asp-for="Zespol" />
+    <input class="form-control" asp-for="Zespol"  />
     <span class="text-danger" asp-validation-for="Zespol"></span>
 
     <label asp-for="Spis_piosenek"></label>
-    @for (int i = 0; i < Model.Spis_piosenek.Count; i++)
-    {
-        <div class="piosenka">
-            <label>Piosenka: @(i)</label>
-            <input class="form-control" asp-for="Spis_piosenek[i]" />
-            <label>Czas trwania: @(i)</label>
-            <input class="form-control" asp-for="Czas_trwania[i]" />
-        </div>
-    }
+    <input class="form-control" asp-for="Spis_piosenek"  />
     <span class="text-danger" asp-validation-for="Spis_piosenek"></span>
 
     <label asp-for="Notowanie"></label>
-    <input class="form-control" asp-for="Notowanie" />
+    <input class="form-control" asp-for="Notowanie"  />
     <span class="text-danger" asp-validation-for="Notowanie"></span>
 
     <label asp-for="Data_wydania"></label>
-    <input class="form-control" asp-for="Data_wydania" />
+    <input class="form-control" asp-for="Data_wydania"  />
     <span class="text-danger" asp-validation-for="Data_wydania"></span>
+
+    <label asp-for="Czas_trwania"></label>
+    <input class="form-control" asp-for="Czas_trwania"  />
+    <span class="text-danger" asp-validation-for="Czas_trwania"></span>
 
 
 

@@ -1,6 +1,4 @@
 using Laboratorium3.Models;
-using Laboratorium3.Services;
-using System.Xml.Linq;
 
 namespace Laboratorium3
 {

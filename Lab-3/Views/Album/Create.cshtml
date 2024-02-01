@@ -4,9 +4,8 @@
 *@
 @{
 }
-<h1>Dodaj album</h1>
-<form asp-controller="Album" asp-action="Create" method="post">
-
+<h1>Edytuj Album</h1>
+<form asp-controller="Album" asp-action="Update" method="post">
 
 
     <label asp-for="Nazwa"></label>
@@ -17,29 +16,9 @@
     <input class="form-control" asp-for="Zespol" />
     <span class="text-danger" asp-validation-for="Zespol"></span>
 
-   @* <label asp-for="Spis_piosenek"></label>
-  
-        <div class="piosenka">
-
-            <input class="form-control" asp-for="Spis_piosenek[0]" />
-
-            <input class="form-control" asp-for="Czas_trwania[0]" />
-        </div>
-   
-    <span class="text-danger" asp-validation-for="Spis_piosenek"></span>*@
-
     <label asp-for="Spis_piosenek"></label>
-    <div id="piosenkiContainer">
-        <div class="piosenka">
-            <label>Piosenka:</label>
-            <label>Czas trwannia:</label>
-            <input class="form-control" ?asp-for="Czas_trwania[0]" placeholder="hh:mm:ss" />
-        </div>
-    </div>
-    <div><button type="button" id="dodajPiosenke">Dodaj piosenkę</button></div>
+    <input class="form-control" asp-for="Spis_piosenek" />
     <span class="text-danger" asp-validation-for="Spis_piosenek"></span>
-
-
 
     <label asp-for="Notowanie"></label>
     <input class="form-control" asp-for="Notowanie" />
@@ -49,7 +28,9 @@
     <input class="form-control" asp-for="Data_wydania" />
     <span class="text-danger" asp-validation-for="Data_wydania"></span>
 
-
+    <label asp-for="Czas_trwania"></label>
+    <input class="form-control" asp-for="Czas_trwania" />
+    <span class="text-danger" asp-validation-for="Czas_trwania"></span>
 
 
 
@@ -57,35 +38,8 @@
 
     <button type="submit">Dodaj</button>
 
-
-
-
-
     <a asp-controller="Album" asp-action="Index" method="post">
         <button type="button">Powrót</button>
     </a>
+
 </form>
-
-
-
-@section Scripts {
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            var counter = 1;
-
-            $("#dodajPiosenke").click(function () {
-                var newPiosenka =
-                    `<div class="piosenka">
-                        <label>Piosenka:</label>
-                        <input class="form-control" name="Spis_piosenek[${counter}]" />
-                        <label>Czas trwannia:</label>
-                        <input class="form-control" name="Czas_trwania[${counter}]" placeholder="hh:mm:ss"/>
-                    </div>`;
-
-                $("#piosenkiContainer").append(newPiosenka);
-                counter++;
-            });
-        });
-    </script>
-}

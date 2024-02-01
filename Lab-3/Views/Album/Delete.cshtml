@@ -16,15 +16,8 @@
     <input class="form-control" asp-for="Zespol" readonly />
     <span class="text-danger" asp-validation-for="Zespol"></span>
 
-    <label asp-for="Spis_piosenek">Spis Piosenek z Czasem Trwania</label>
-    <ul>
-        @for (int i = 0; i < Model.Spis_piosenek.Count; i++)
-        {
-            <li>
-                <span>@Model.Spis_piosenek[i] - @Model.Czas_trwania[i].ToString(@"mm\m\ ss\s")</span>
-            </li>
-        }
-    </ul>
+    <label asp-for="Spis_piosenek"></label>
+    <input class="form-control" asp-for="Spis_piosenek" readonly />
     <span class="text-danger" asp-validation-for="Spis_piosenek"></span>
 
     <label asp-for="Notowanie"></label>
@@ -32,8 +25,12 @@
     <span class="text-danger" asp-validation-for="Notowanie"></span>
 
     <label asp-for="Data_wydania"></label>
-    <input class="form-control" readonly placeholder="@Model.Data_wydania.ToString("dd MMMM YYYY")" />
+    <input class="form-control" asp-for="Data_wydania" readonly />
     <span class="text-danger" asp-validation-for="Data_wydania"></span>
+
+    <label asp-for="Czas_trwania"></label>
+    <input class="form-control" asp-for="Czas_trwania" readonly />
+    <span class="text-danger" asp-validation-for="Czas_trwania"></span>
 
 
     <button type="submit">Usuń</button>

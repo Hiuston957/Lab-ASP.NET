@@ -4,65 +4,49 @@
 *@
 @{
 }
-<h1>Spis Albumów</h1>
-<a class="btn btn-primary" asp-controller="Album" asp-action="Create">Dodaj Album</a>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Nazwa
-            </th>
-            <th>
-                Zespol
-            </th>
-            <th>
-                Spis Piosenek
-            </th>
-            <th>
-                Notowania
-            </th>
-            <th>
-                Łączny czas albumu
-            </th>
-            <th>
-                Akcje
-            </th>
-           
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (Album item in @Model)
-        {
-            int liczba_piosenek = (item.Spis_piosenek != null) ? item.Spis_piosenek.Count() : 0;
-            var sumaCzasu = TimeSpan.Zero;
-            foreach (var piosenka in item.Czas_trwania ?? Enumerable.Empty<TimeSpan>())
-            {
-                sumaCzasu = sumaCzasu.Add(piosenka);
-            }
 
+<h1>Lista kontaktów</h1>
+<a class="btn btn-primary" asp-controller="Album" asp-action="Create">Dodaj kontakt</a>
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @item.Nazwa
-                </td>
-                <td>
-                    @item.Zespol
-                </td>
-                <td>
-                    @liczba_piosenek
-                </td>
-                <td>
-                    @item.Notowanie
-                </td>
-                <td>
-                    @sumaCzasu.ToString(@"hh\h\ mm\m\ ss\s")
-                </td>
-                <td>
-                    <a asp-action="Update" asp-route-id="@item.Id">Edytuj</a>
-                    <a asp-action="Details" asp-route-id="@item.Id">Szczegóły</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].Nazwa)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].Zespol)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].Czas_trwania)
+                </th>
+                <th>
+                    Akcje
+                </th>
             </tr>
-        }
 
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (Album item in @Model)
+            {
+                <tr>
+                    <td>
+                        @item.Nazwa
+                    </td>
+                    <td>
+                        @item.Zespol
+                    </td>
+                    <td>
+                        @item.Czas_trwania.ToString()
+                    </td>
+                    <td>
+                        <a asp-action="Update" asp-route-id=@item.Id>Edytuj</a>
+                        <a asp-action="Details" asp-route-id=@item.Id>Szczegóły</a>
+                        <a asp-action="Delete" asp-route-id=@item.Id>Usuń</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

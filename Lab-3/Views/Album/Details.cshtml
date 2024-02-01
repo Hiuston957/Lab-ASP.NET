@@ -4,10 +4,9 @@
 *@
 @{
 }
-<h1>Szczegóły</h1>
-<form asp-controller="Album" asp-action="Index" method="post" >
+<h1>Szczegóły albumu</h1>
 
-
+<form asp-controller="Album" asp-action="Details" method="post">
     <label asp-for="Nazwa"></label>
     <input class="form-control" asp-for="Nazwa" readonly />
     <span class="text-danger" asp-validation-for="Nazwa"></span>
@@ -16,26 +15,24 @@
     <input class="form-control" asp-for="Zespol" readonly />
     <span class="text-danger" asp-validation-for="Zespol"></span>
 
-    <label asp-for="Spis_piosenek">Spis:</label>
-    <ul>
-        @for (int i = 0; i < Model.Spis_piosenek.Count; i++)
-        {
-            <li>
-                <span>@Model.Spis_piosenek[i] - @Model.Czas_trwania[i].ToString(@"mm\m\ ss\s")</span>
-            </li>
-        }
-    </ul>
+    <label asp-for="Spis_piosenek"></label>
+
+        <input class="form-control" asp-for="Spis_piosenek" readonly />
+
     <span class="text-danger" asp-validation-for="Spis_piosenek"></span>
+
 
     <label asp-for="Notowanie"></label>
     <input class="form-control" asp-for="Notowanie" readonly />
     <span class="text-danger" asp-validation-for="Notowanie"></span>
 
     <label asp-for="Data_wydania"></label>
-    <input class="form-control" readonly placeholder="@Model.Data_wydania.ToString("dd MMMM yyyy")" />
+    <input class="form-control" asp-for="Data_wydania" readonly />
     <span class="text-danger" asp-validation-for="Data_wydania"></span>
 
+    <label asp-for="Czas_trwania"></label>
+    <input class="form-control" asp-for="Czas_trwania" readonly />
+    <span class="text-danger" asp-validation-for="Czas_trwania"></span>
 
-    <button type="submit">Wróć</button>
-
+    <button type="submit">Powrót</button>
 </form>

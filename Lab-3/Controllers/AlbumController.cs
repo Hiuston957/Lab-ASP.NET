@@ -23,8 +23,8 @@ namespace Laboratorium3.Controllers
             return View();
         }
 
-    
-       
+
+
         [HttpPost]
         public IActionResult Create(Album model)
         {
@@ -92,7 +92,7 @@ namespace Laboratorium3.Controllers
                 return RedirectToAction("Index");
             }
 
-            return NotFound(); 
+            return NotFound();
 
         }
 
