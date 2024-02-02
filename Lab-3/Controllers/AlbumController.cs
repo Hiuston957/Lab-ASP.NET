@@ -1,5 +1,7 @@
 ﻿using Laboratorium3.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 
 namespace Laboratorium3.Controllers
 {
@@ -7,11 +9,11 @@ namespace Laboratorium3.Controllers
     {
         private readonly IAlbumService _albumService;
 
-
         public AlbumController(IAlbumService albumService)
         {
             _albumService = albumService;
         }
+
         public IActionResult Index()
         {
             return View(_albumService.FindAll());
@@ -23,8 +25,6 @@ namespace Laboratorium3.Controllers
             return View();
         }
 
-
-
         [HttpPost]
         public IActionResult Create(Album model)
         {
@@ -33,36 +33,15 @@ namespace Laboratorium3.Controllers
                 _albumService.Add(model);
                 return RedirectToAction("Index");
             }
-
-            // Jeśli ModelState nie jest poprawny, przekazujemy bieżący model z powrotem do widoku
-            return View(model);
-        }
-
-
-        [HttpGet]
-        public IActionResult Details(int id)
-        {
-            return View(_albumService.FindById(id));
-        }
-        [HttpPost]
-        public IActionResult Details(Album model)
-        {
-            if (ModelState.IsValid)
-            {
-
-
-                return RedirectToAction("Index");
-            }
             return View();
-
         }
-
 
         [HttpGet]
         public IActionResult Update(int id)
         {
             return View(_albumService.FindById(id));
         }
+
         [HttpPost]
         public IActionResult Update(Album model)
         {
@@ -74,28 +53,38 @@ namespace Laboratorium3.Controllers
             return View();
         }
 
-
-
         [HttpGet]
         public IActionResult Delete(int id)
         {
             return View(_albumService.FindById(id));
         }
+
         [HttpPost]
         public IActionResult Delete(Album model)
         {
-            var albumToDelete = _albumService.FindById(model.Id);
-
-            if (albumToDelete != null)
+            if (ModelState.IsValid)
             {
-                _albumService.DeleteById(albumToDelete);
+                _albumService.DeleteById(model);
                 return RedirectToAction("Index");
             }
-
-            return NotFound();
-
+            return View();
         }
 
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            return View(_albumService.FindById(id));
+        }
 
-    }//test commit
+        [HttpPost]
+        public IActionResult Details(Album model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Additional logic for details if needed
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+    }
 }
