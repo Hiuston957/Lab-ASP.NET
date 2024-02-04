@@ -4,9 +4,12 @@
 *@
 @{
 }
+<link rel="stylesheet" href="~/css/siteAlbum.css" asp-append-version="true" />
 
-<h1>Lista kontaktów</h1>
-<a class="btn btn-primary" asp-controller="Album" asp-action="Create">Dodaj kontakt</a>
+
+
+<h1>Lista Albumów</h1>
+
 @if (Model != null && Model.Count > 0)
 {
     <table class="table">
@@ -50,3 +53,12 @@
         </tbody>
     </table>
 }
+
+<a class="btn btn-primary" asp-controller="Album" asp-action="Create">Dodaj Album</a>
+<a class="btn btn-primary" asp-controller="Album" asp-action="CreateApi">Dodaj album (wersja z API)</a>
+
+
+<p><br>Przykładowe zapytania API</p>
+<p><a href="https://localhost:7001/api/albums/startwith/F">Albumy na litere F</a></p>
+<p><a href="https://localhost:7001/api/albums">Wszystkie albumy</a></p>
+<p><a href="https://localhost:7001/api/albums/top">Album z najlepszym notowaniem</a></p>

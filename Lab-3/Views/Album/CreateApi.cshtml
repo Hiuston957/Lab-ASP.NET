@@ -6,7 +6,7 @@
 }
 <link rel="stylesheet" href="~/css/siteAlbum.css" asp-append-version="true" />
 
-<h1>Edytuj Album</h1>
+<h1>Edytuj Album API</h1>
 <form asp-controller="Album" asp-action="Update" method="post">
 
 
@@ -45,3 +45,36 @@
     </a>
 
 </form>
+
+
+    @section Scripts{
+    <script>
+        //let select = document.getElementById("OrganizationId");
+        let filter = document.getElementById("filter");
+        filter.onchange = function (e) {
+            if (filter.value.lenght == 0) {
+                return;
+            }
+            fetch(`/api/albums?filter=${filter.value}`)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json()
+                    }
+                    throw "No OK, actual status " + response.status;
+                })
+                .then(json => {
+                    select.innerHTML = '';
+                    for (let item of json) {
+                        let option = document.createElement('option');
+                        option.setAttribute('value', item.id);
+                        option.innerText = item.title;
+                        select.appendChild(option);
+                    }
+                })
+                .catch(e => {
+                    console.log('Cant get data from api', e);
+                });
+        };
+    </script>
+    }
+

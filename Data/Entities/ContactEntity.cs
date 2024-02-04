@@ -23,7 +23,11 @@ namespace Data.Entities
         public string Phone { get; set; }
         [Column("birth_date")]
         public DateTime Birth { get; set; }
+        public int OrganizationId { get; set; }
+        public OrganizationEntity? Organization { get; set; }
     }
+
+
 
 
 

@@ -17,8 +17,9 @@ namespace Data
        public DbSet<ContactEntity> Contacts { get; set; }
         public DbSet<AlbumEntity> Albums { get; set; }
 
-       // public DbSet<AlbumSong> AlbumSongs { get; set; } // Add DbSet for AlbumSong
-       // public DbSet<AlbumTimeSpan> AlbumTimeSpans { get; set; } // Add DbSet for AlbumTimeSpan
+        public DbSet<OrganizationEntity> Organizations { get; set; }
+        // public DbSet<AlbumSong> AlbumSongs { get; set; } // Add DbSet for AlbumSong
+        // public DbSet<AlbumTimeSpan> AlbumTimeSpans { get; set; } // Add DbSet for AlbumTimeSpan
 
 
 
@@ -28,7 +29,7 @@ namespace Data
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
-            DbPath = System.IO.Path.Join(path, "Mydata5.db");
+            DbPath = System.IO.Path.Join(path, "Mydata6.db");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options) =>
@@ -36,6 +37,60 @@ namespace Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //------------------------------------
+
+
+
+            modelBuilder.Entity<ContactEntity>()
+                .HasOne(e => e.Organization)
+                .WithMany(o => o.Contacts)
+                .HasForeignKey(e => e.OrganizationId);
+
+            modelBuilder.Entity<OrganizationEntity>().HasData(
+                 new OrganizationEntity()
+                 {
+                     OrganizationEntityId = 1,
+                     Title = "WSEI",
+                     Nip = "83492384",
+                     Regon = "13424234",
+                 },
+                 new OrganizationEntity()
+                 {
+                     OrganizationEntityId = 2,
+                     Title = "Firma",
+                     Nip = "2498534",
+                     Regon = "0873439249",
+                 }
+             ); ;
+            modelBuilder.Entity<ContactEntity>().HasData(
+               new ContactEntity()
+               {
+                   Id = 1,
+                   Name = "AA",
+                   Email = "Adam",
+                   Phone = "13424234",
+                   OrganizationId = 1,
+
+               },
+               new ContactEntity()
+               {
+                   Id = 2,
+                   Name = "C#",
+                   Email = "Ewa",
+                   Phone = "02879283",
+                   OrganizationId = 2,
+               }
+           );
+           modelBuilder.Entity<OrganizationEntity>()
+               .OwnsOne(e => e.Address)
+                 .HasData(
+                 new { OrganizationEntityId = 1, City = "Kraków", Street = "Św. Filipa 17", PostalCode = "31-150", Region = "małopolskie" },
+                 new { OrganizationEntityId = 2, City = "Kraków", Street = "Krowoderska 45/6", PostalCode = "31-150", Region = "małopolskie" }
+               );
+
+
+
+            //--------------------------------------
             modelBuilder.Entity<AlbumEntity>().HasData(
              new AlbumEntity() { Id = 1, Nazwa = "Album1", Zespol = "Band1", Spis_piosenek = "Song1, Song2", Notowanie = 1, Data_wydania = new DateTime(2022, 1, 1) },
              new AlbumEntity() { Id = 2, Nazwa = "Album2", Zespol = "Band2", Spis_piosenek = "Song3, Song4", Notowanie = 2, Data_wydania = new DateTime(2022, 2, 1) }

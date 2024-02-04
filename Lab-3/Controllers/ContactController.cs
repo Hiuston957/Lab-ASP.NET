@@ -1,5 +1,6 @@
 ﻿using Laboratorium3.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Laboratorium3.Controllers
 {
@@ -19,23 +20,38 @@ namespace Laboratorium3.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public ActionResult Create()
         {
-            return View();
+            Contact model = new Contact();
+            model.Organizations = _contactService
+                .FindAllOrganizationsForVieModel()
+                .Select(o => new SelectListItem() { Value = o.OrganizationEntityId.ToString(), Text = o.Title })
+                .ToList();
+            return View(model);
         }
+
+
         [HttpPost]
         public IActionResult Create(Contact model)
         {
-            if(ModelState.IsValid) // nie ma jawnego powiązania ale sprawdza czy model istenieje
+            if (ModelState.IsValid)
             {
                 _contactService.Add(model);
                 // zapamietaj kontakt
-
                 return RedirectToAction("Index");
             }
-            return View();
 
+            // Model is not valid, initialize Organizations and return the view with the model
+            model.Organizations = _contactService
+                .FindAllOrganizationsForVieModel()
+                .Select(o => new SelectListItem() { Value = o.OrganizationEntityId.ToString(), Text = o.Title })
+                .ToList();
+
+            return View(model);
         }
+
+
+
         [HttpGet]
         public IActionResult Update(int id)
         {

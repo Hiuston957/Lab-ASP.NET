@@ -1,4 +1,6 @@
-﻿namespace Laboratorium3.Models
+﻿using Data.Entities;
+
+namespace Laboratorium3.Models
 {
     public interface IContactService
     {
@@ -7,8 +9,8 @@
          void DeleteById(Contact contact);
          Contact? FindById(int id);
          List<Contact> FindAll();
-         
 
+        List<OrganizationEntity> FindAllOrganizationsForVieModel();
 
 
 

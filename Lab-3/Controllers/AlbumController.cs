@@ -86,5 +86,32 @@ namespace Laboratorium3.Controllers
             }
             return View();
         }
+
+        [HttpPost]
+      //  [ValidateAntiForgeryToken]
+        public ActionResult CreateApi(Album c)
+        {
+            if (ModelState.IsValid)
+            {
+                _albumService.Add(c);
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+
+        [HttpGet]
+        public IActionResult CreateApi()
+        {
+            return View();
+        }
+
+        // public ActionResult Edit(int id)
+        //{
+        //     return View();
+        // }
+
+
+
     }
 }

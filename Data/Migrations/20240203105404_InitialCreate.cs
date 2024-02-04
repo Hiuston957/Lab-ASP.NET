@@ -67,19 +67,21 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "contacts",
+                name: "Organizations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    Email = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    Phone = table.Column<string>(type: "TEXT", maxLength: 12, nullable: false),
-                    birth_date = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    OrganizationEntityId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    Regon = table.Column<string>(type: "TEXT", nullable: false),
+                    Nip = table.Column<string>(type: "TEXT", nullable: false),
+                    Address_City = table.Column<string>(type: "TEXT", nullable: true),
+                    Address_Street = table.Column<string>(type: "TEXT", nullable: true),
+                    Address_PostalCode = table.Column<string>(type: "TEXT", nullable: true),
+                    Address_Region = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_contacts", x => x.Id);
+                    table.PrimaryKey("PK_Organizations", x => x.OrganizationEntityId);
                 });
 
             migrationBuilder.CreateTable(
@@ -188,25 +190,58 @@ namespace Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "2781dbfe-ffa4-4c38-98a3-6969464b942d", "2781dbfe-ffa4-4c38-98a3-6969464b942d", "user", "USER" });
+            migrationBuilder.CreateTable(
+                name: "contacts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Phone = table.Column<string>(type: "TEXT", maxLength: 12, nullable: false),
+                    birth_date = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    OrganizationId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_contacts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_contacts_Organizations_OrganizationId",
+                        column: x => x.OrganizationId,
+                        principalTable: "Organizations",
+                        principalColumn: "OrganizationEntityId",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "563ad274-fdde-4c09-bc12-1655d4ddf8e0", "563ad274-fdde-4c09-bc12-1655d4ddf8e0", "admin", "ADMIN" });
+                values: new object[] { "d66ed1f1-b8ae-44bd-a18f-b8df039b21df", "d66ed1f1-b8ae-44bd-a18f-b8df039b21df", "user", "USER" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "f91682fd-7383-4183-9b2f-292a81c8ab8e", "f91682fd-7383-4183-9b2f-292a81c8ab8e", "admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "2047ba0a-0750-4f84-8c7d-c6915ee9f1e9", 0, "9e982837-b773-4023-8cd4-f4f36371095c", "adam@wsei.edu.pl", true, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAENnajtZjyYs5bxbTi+9huyPoURDfcH/MWeokWZn9U4BqJGcptEHsd2N1rEWObivNgw==", null, false, "6e535f9e-ad1d-4dfa-a4cd-bf53a2f1adc6", false, "adam" });
+                values: new object[] { "bcc90965-bfba-4488-98ef-0556de57938e", 0, "de8a3111-5895-4130-8f16-33b9c97352a8", "adam@wsei.edu.pl", true, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEJDxj24bicLeGXHBzVmqac64TGUN/AWQddTDdVOQtEItQVjCqqss+CnrBDXpmJwB1A==", null, false, "96c3a10b-1a9e-42e7-8bb4-5513b14a38b0", false, "adam" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "de423658-5f6d-4e61-9192-b6327f81831f", 0, "0ce0e8c5-16e7-476a-8d66-45b33776ec93", "user@wsei.edu.pl", true, false, null, null, "user", "AQAAAAEAACcQAAAAEOpMrZY0HeTvZFFBQAWQDx07E7Jgx4ZrSkQH6VpRAIB5CywgJHfJIAVxznOClYobyQ==", null, false, "c60faa31-e056-4010-bc1e-11f85f4f780e", false, "user" });
+                values: new object[] { "fe8203e4-500b-4eb2-9e19-6a316f974bb5", 0, "2e49c072-fd0a-4aa2-b4b9-451e7d1bc29f", "user@wsei.edu.pl", true, false, null, null, "user", "AQAAAAEAACcQAAAAEMNzXpBwmGnalZabL8FK8i0fLHd/6wErr63p9n2wzTmE5ja9S2MdBeghllo76iptnw==", null, false, "9a6b1ef8-2f0c-4e05-ae2f-a90b52c7574a", false, "user" });
+
+            migrationBuilder.InsertData(
+                table: "Organizations",
+                columns: new[] { "OrganizationEntityId", "Nip", "Regon", "Title", "Address_City", "Address_PostalCode", "Address_Region", "Address_Street" },
+                values: new object[] { 1, "83492384", "13424234", "WSEI", "Kraków", "31-150", "małopolskie", "Św. Filipa 17" });
+
+            migrationBuilder.InsertData(
+                table: "Organizations",
+                columns: new[] { "OrganizationEntityId", "Nip", "Regon", "Title", "Address_City", "Address_PostalCode", "Address_Region", "Address_Street" },
+                values: new object[] { 2, "2498534", "0873439249", "Firma", "Kraków", "31-150", "małopolskie", "Krowoderska 45/6" });
 
             migrationBuilder.InsertData(
                 table: "albums",
@@ -221,12 +256,22 @@ namespace Data.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "563ad274-fdde-4c09-bc12-1655d4ddf8e0", "2047ba0a-0750-4f84-8c7d-c6915ee9f1e9" });
+                values: new object[] { "f91682fd-7383-4183-9b2f-292a81c8ab8e", "bcc90965-bfba-4488-98ef-0556de57938e" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "2781dbfe-ffa4-4c38-98a3-6969464b942d", "de423658-5f6d-4e61-9192-b6327f81831f" });
+                values: new object[] { "d66ed1f1-b8ae-44bd-a18f-b8df039b21df", "fe8203e4-500b-4eb2-9e19-6a316f974bb5" });
+
+            migrationBuilder.InsertData(
+                table: "contacts",
+                columns: new[] { "Id", "birth_date", "Email", "Name", "OrganizationId", "Phone" },
+                values: new object[] { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Adam", "AA", 1, "13424234" });
+
+            migrationBuilder.InsertData(
+                table: "contacts",
+                columns: new[] { "Id", "birth_date", "Email", "Name", "OrganizationId", "Phone" },
+                values: new object[] { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ewa", "C#", 2, "02879283" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -264,6 +309,11 @@ namespace Data.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_contacts_OrganizationId",
+                table: "contacts",
+                column: "OrganizationId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -294,6 +344,9 @@ namespace Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Organizations");
         }
     }
 }

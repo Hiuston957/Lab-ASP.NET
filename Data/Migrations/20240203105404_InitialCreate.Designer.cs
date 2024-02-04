@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240201215313_InitialCreate")]
+    [Migration("20240203105404_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,6 +93,9 @@ namespace Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(12)
@@ -100,7 +103,68 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("OrganizationId");
+
                     b.ToTable("contacts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Birth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Adam",
+                            Name = "AA",
+                            OrganizationId = 1,
+                            Phone = "13424234"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Birth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Ewa",
+                            Name = "C#",
+                            OrganizationId = 2,
+                            Phone = "02879283"
+                        });
+                });
+
+            modelBuilder.Entity("Data.Entities.OrganizationEntity", b =>
+                {
+                    b.Property<int>("OrganizationEntityId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nip")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Regon")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("OrganizationEntityId");
+
+                    b.ToTable("Organizations");
+
+                    b.HasData(
+                        new
+                        {
+                            OrganizationEntityId = 1,
+                            Nip = "83492384",
+                            Regon = "13424234",
+                            Title = "WSEI"
+                        },
+                        new
+                        {
+                            OrganizationEntityId = 2,
+                            Nip = "2498534",
+                            Regon = "0873439249",
+                            Title = "Firma"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -131,15 +195,15 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "563ad274-fdde-4c09-bc12-1655d4ddf8e0",
-                            ConcurrencyStamp = "563ad274-fdde-4c09-bc12-1655d4ddf8e0",
+                            Id = "f91682fd-7383-4183-9b2f-292a81c8ab8e",
+                            ConcurrencyStamp = "f91682fd-7383-4183-9b2f-292a81c8ab8e",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "2781dbfe-ffa4-4c38-98a3-6969464b942d",
-                            ConcurrencyStamp = "2781dbfe-ffa4-4c38-98a3-6969464b942d",
+                            Id = "d66ed1f1-b8ae-44bd-a18f-b8df039b21df",
+                            ConcurrencyStamp = "d66ed1f1-b8ae-44bd-a18f-b8df039b21df",
                             Name = "user",
                             NormalizedName = "USER"
                         });
@@ -234,31 +298,31 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2047ba0a-0750-4f84-8c7d-c6915ee9f1e9",
+                            Id = "bcc90965-bfba-4488-98ef-0556de57938e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9e982837-b773-4023-8cd4-f4f36371095c",
+                            ConcurrencyStamp = "de8a3111-5895-4130-8f16-33b9c97352a8",
                             Email = "adam@wsei.edu.pl",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAENnajtZjyYs5bxbTi+9huyPoURDfcH/MWeokWZn9U4BqJGcptEHsd2N1rEWObivNgw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJDxj24bicLeGXHBzVmqac64TGUN/AWQddTDdVOQtEItQVjCqqss+CnrBDXpmJwB1A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6e535f9e-ad1d-4dfa-a4cd-bf53a2f1adc6",
+                            SecurityStamp = "96c3a10b-1a9e-42e7-8bb4-5513b14a38b0",
                             TwoFactorEnabled = false,
                             UserName = "adam"
                         },
                         new
                         {
-                            Id = "de423658-5f6d-4e61-9192-b6327f81831f",
+                            Id = "fe8203e4-500b-4eb2-9e19-6a316f974bb5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0ce0e8c5-16e7-476a-8d66-45b33776ec93",
+                            ConcurrencyStamp = "2e49c072-fd0a-4aa2-b4b9-451e7d1bc29f",
                             Email = "user@wsei.edu.pl",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "user",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOpMrZY0HeTvZFFBQAWQDx07E7Jgx4ZrSkQH6VpRAIB5CywgJHfJIAVxznOClYobyQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMNzXpBwmGnalZabL8FK8i0fLHd/6wErr63p9n2wzTmE5ja9S2MdBeghllo76iptnw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c60faa31-e056-4010-bc1e-11f85f4f780e",
+                            SecurityStamp = "9a6b1ef8-2f0c-4e05-ae2f-a90b52c7574a",
                             TwoFactorEnabled = false,
                             UserName = "user"
                         });
@@ -326,13 +390,13 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "2047ba0a-0750-4f84-8c7d-c6915ee9f1e9",
-                            RoleId = "563ad274-fdde-4c09-bc12-1655d4ddf8e0"
+                            UserId = "bcc90965-bfba-4488-98ef-0556de57938e",
+                            RoleId = "f91682fd-7383-4183-9b2f-292a81c8ab8e"
                         },
                         new
                         {
-                            UserId = "de423658-5f6d-4e61-9192-b6327f81831f",
-                            RoleId = "2781dbfe-ffa4-4c38-98a3-6969464b942d"
+                            UserId = "fe8203e4-500b-4eb2-9e19-6a316f974bb5",
+                            RoleId = "d66ed1f1-b8ae-44bd-a18f-b8df039b21df"
                         });
                 });
 
@@ -353,6 +417,69 @@ namespace Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Data.Entities.ContactEntity", b =>
+                {
+                    b.HasOne("Data.Entities.OrganizationEntity", "Organization")
+                        .WithMany("Contacts")
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Organization");
+                });
+
+            modelBuilder.Entity("Data.Entities.OrganizationEntity", b =>
+                {
+                    b.OwnsOne("Data.Entities.Address", "Address", b1 =>
+                        {
+                            b1.Property<int>("OrganizationEntityId")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<string>("City")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("PostalCode")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("Region")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("Street")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.HasKey("OrganizationEntityId");
+
+                            b1.ToTable("Organizations");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrganizationEntityId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    OrganizationEntityId = 1,
+                                    City = "Kraków",
+                                    PostalCode = "31-150",
+                                    Region = "małopolskie",
+                                    Street = "Św. Filipa 17"
+                                },
+                                new
+                                {
+                                    OrganizationEntityId = 2,
+                                    City = "Kraków",
+                                    PostalCode = "31-150",
+                                    Region = "małopolskie",
+                                    Street = "Krowoderska 45/6"
+                                });
+                        });
+
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -404,6 +531,11 @@ namespace Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Data.Entities.OrganizationEntity", b =>
+                {
+                    b.Navigation("Contacts");
                 });
 #pragma warning restore 612, 618
         }

@@ -45,5 +45,12 @@ namespace Laboratorium3.Models
         {
             return _context.Contacts.Select(e => ContactMapper.FromEntity(e)).ToList();
         }
+
+        public List<OrganizationEntity> FindAllOrganizationsForVieModel()
+        {
+            return _context.Organizations.ToList();
+        }
+
+
     }
 }

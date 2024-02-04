@@ -1,4 +1,6 @@
-﻿namespace Laboratorium3.Models
+﻿using Data.Entities;
+
+namespace Laboratorium3.Models
 {
     public class MemoryContactServices : IContactService
     {
@@ -7,10 +9,11 @@
             {1,new Contact() {Id=1,Name="Jan",Email="test@mail.pl",Phone="111662222" } },
             {2,new Contact() {Id=2,Name="Szymon",Email="testowy@mail.pl",Phone="1232323" } },
         };
-        private int _id=3;
+        private int _id = 3;
+
         public void Add(Contact contact)
         {
-            contact.Id= _id++;
+            contact.Id = _id++;
             _contacts[contact.Id] = contact;
         }
 
@@ -26,12 +29,19 @@
 
         public Contact? FindById(int id)
         {
-            return _contacts[id];
+            return _contacts.TryGetValue(id, out var contact) ? contact : null;
         }
 
         public void Update(Contact contact)
         {
             _contacts[contact.Id] = contact;
+        }
+
+        public List<OrganizationEntity> FindAllOrganizationsForVieModel()
+        {
+            // Zakładamy, że organizacje nie są przechowywane w tej klasie,
+            // więc zwracamy pustą listę organizacji.
+            return new List<OrganizationEntity>();
         }
     }
 }

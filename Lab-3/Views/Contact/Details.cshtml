@@ -22,6 +22,12 @@
     <input class="form-control" asp-for="Birth" readonly/>
     <span class="text-danger" asp-validation-for="Birth"></span>
 
+    </div>
+    <div class="form-group">
+        <select class="form-control" asp-for="OrganizationId" asp-items="@Model.Organizations"></select>
+    </div>
+    <div class="form-group">
+
     <button type="submit">Wróć</button>
 
 </form>
