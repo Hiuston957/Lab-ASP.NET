@@ -21,15 +21,6 @@ namespace Laboratorium3
            builder.Services.AddTransient<IContactService, EFContactService>();
 
 
-            
-           
-
-
-
-
-
-
-
 
             var app = builder.Build();
 
