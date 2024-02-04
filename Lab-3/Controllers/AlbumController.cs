@@ -111,7 +111,20 @@ namespace Laboratorium3.Controllers
         //     return View();
         // }
 
+        [HttpGet("RankingNumberOne")]
+        public IActionResult RankingNumberOne()
+        {
+            var topAlbum = _albumService.FindAll()
+                .OrderBy(a => a.Notowanie)
+                .FirstOrDefault();
 
+            if (topAlbum == null)
+            {
+                return NotFound();
+            }
+
+            return View("TopAlbumView", topAlbum);
+        }
 
     }
 }

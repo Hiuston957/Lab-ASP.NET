@@ -1,0 +1,55 @@
+﻿html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #ffd700; /* Change to gold color */
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    background-image: url('https://img.freepik.com/free-photo/empty-save-texture-room-light_1258-175.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.table {
+    background-color: #ffffff; /* White background for the table */
+}
+
+    .table th, .table td {
+        border: 1px solid #dee2e6; /* Border color */
+    }
+
+.btn-primary {
+    background-color: #b8860b; /* Darker gold color for the primary button */
+    border-color: #b8860b;
+}
+
+    .btn-primary:hover {
+        background-color: #cd9b1d; 
+        border-color: #cd9b1d;
+    }
+
+.btn-primary {
+    margin-top: 10px; /* Adjust top margin as needed */
+}
+
+h1 {
+    margin-bottom: 10px; /* Adjust bottom margin as needed */
+    text-align: center;
+    color: #b8860b; 
+    font-size: 2em; 
+    font-weight: bold;
+}

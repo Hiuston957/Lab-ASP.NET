@@ -1,0 +1,59 @@
+﻿@model Laboratorium3.Models.Album
+
+<link rel="stylesheet" href="~/css/siteAlbumTop1.css" asp-append-version="true" />
+
+<h1>🏆 Album nr 1 w notowaniach 🏆</h1>
+
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nazwa)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Zespol)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Czas_trwania)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Data_wydania)
+                </th>
+                <th>
+                    Akcje
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Model.Nazwa
+                </td>
+                <td>
+                    @Model.Zespol
+                </td>
+                <td>
+                    @Model.Czas_trwania.ToString()
+                </td>
+                <td>
+                    @Model.Data_wydania.ToString("yyyy-MM-dd")
+                </td>
+                <td>
+                  
+                    <a asp-action="Details" asp-route-id="@Model.Id">Szczegóły</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No data available for the top album.</p>
+}
+
+<p>
+        <button type="button" onclick="window.history.back()">Powrót</button>
+
+</p>

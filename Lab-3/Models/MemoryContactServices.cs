@@ -39,8 +39,7 @@ namespace Laboratorium3.Models
 
         public List<OrganizationEntity> FindAllOrganizationsForVieModel()
         {
-            // Zakładamy, że organizacje nie są przechowywane w tej klasie,
-            // więc zwracamy pustą listę organizacji.
+ 
             return new List<OrganizationEntity>();
         }
     }

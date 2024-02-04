@@ -18,9 +18,6 @@ namespace Data
         public DbSet<AlbumEntity> Albums { get; set; }
 
         public DbSet<OrganizationEntity> Organizations { get; set; }
-        // public DbSet<AlbumSong> AlbumSongs { get; set; } // Add DbSet for AlbumSong
-        // public DbSet<AlbumTimeSpan> AlbumTimeSpans { get; set; } // Add DbSet for AlbumTimeSpan
-
 
 
         private string DbPath { get; set; }
@@ -96,32 +93,11 @@ namespace Data
              new AlbumEntity() { Id = 2, Nazwa = "Album2", Zespol = "Band2", Spis_piosenek = "Song3, Song4", Notowanie = 2, Data_wydania = new DateTime(2022, 2, 1) }
          );
 
-            //modelBuilder.Entity<ContactEntity>();
+          
             modelBuilder.Entity<AlbumEntity>();
-            //  modelBuilder.Entity<AlbumSong>(); // Add configuration for AlbumSong
-            //  modelBuilder.Entity<AlbumTimeSpan>(); // Add configuration for AlbumTimeSpan
-
             base.OnModelCreating(modelBuilder);
 
-            // Existing code for roles and users
-
-            // Configure relationships
-            /*
-            modelBuilder.Entity<AlbumSong>()
-                .HasOne(song => song.Album)
-                .WithMany(album => album.Songs)
-                .HasForeignKey(song => song.AlbumId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<AlbumTimeSpan>()
-                .HasOne(span => span.Album)
-                .WithMany(album => album.Czas_trwania)
-                .HasForeignKey(span => span.AlbumId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            */
-
-
+      
 
 
 

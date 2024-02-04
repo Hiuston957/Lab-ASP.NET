@@ -37,11 +37,9 @@ namespace Laboratorium3.Controllers
             if (ModelState.IsValid)
             {
                 _contactService.Add(model);
-                // zapamietaj kontakt
                 return RedirectToAction("Index");
             }
 
-            // Model is not valid, initialize Organizations and return the view with the model
             model.Organizations = _contactService
                 .FindAllOrganizationsForVieModel()
                 .Select(o => new SelectListItem() { Value = o.OrganizationEntityId.ToString(), Text = o.Title })
@@ -79,8 +77,7 @@ namespace Laboratorium3.Controllers
             if (ModelState.IsValid) 
             {
                 _contactService.DeleteById(model);
-                // zapamietaj kontakt
-
+              
                 return RedirectToAction("Index");
             }
             return View();
@@ -95,7 +92,7 @@ namespace Laboratorium3.Controllers
         [HttpPost]
         public IActionResult Details(Contact model)
         {
-            if (ModelState.IsValid) // nie ma jawnego powiązania ale sprawdza czy model istenieje
+            if (ModelState.IsValid) 
             {
                 
 
